@@ -1,0 +1,74 @@
+
+	<div class="page-header">
+		<h1><%= @title %></h1>
+	</div>
+
+	<form name = "switch" action="/new_switch" method="post">
+		<%= csrf_tag %>
+	<fieldset>
+	<div class = "form-group">
+		<label>作業内容 </label>
+		<div class = "row">
+			<div class = "col col-md-6">
+				<select class="form-control" name="ope_type">
+					<option value="0">新規か削除を選択</option>
+					<option value="create">新規</option>
+					<option value="delete">削除</option>
+				</select>
+			</div>
+		</div>
+	</div>
+
+	<div class = "form-group">
+		<label>スイッチ種別選択 </label>
+		<div class = "row">
+			<div class = "col col-md-6">
+				<select class="form-control" name="switch_type" onChange="changeform()">
+					<option value="0">front か back を選択</option>
+					<option value="front">front</option>
+					<option value="back">back</option>
+				</select>
+			</div>
+		</div>
+	</div>
+	
+	<div class = "form-group">
+		<label>スイッチ選択 </label>
+		<div class = "row">
+			<div class = "col col-md-6">
+				<select class="form-control" name="switch_name">
+					<option value=""></option>
+				</select>
+			</div>
+		</div>
+	</div>
+
+	<button type="submit" class="btn btn-primary">submit</button>
+	
+	</fieldset>
+	</form>
+
+<script type="text/JavaScript">
+<!--
+function changeform() {
+    doc = document.switch.switch_name;
+    if (document.switch.switch_type.value == "front") {
+    		doc.length = <%= @switch_front_list.size %>;
+    		<% count = 0 %>
+    		<% @switch_front_list.each do |front| %>
+        		doc.options[<%= count %>].text = "<%= front %>";
+			doc.options[<%= count %>].value = "<%= front %>";
+			<% count += 1 %>
+		<% end %>
+	 } else if (document.switch.switch_type.value == "back") {
+	 	doc.length = 3;
+        	doc.options[0].text = "back1";
+		doc.options[0].value = 1;
+		doc.options[1].text = "back2";
+		doc.options[1].value = 2;
+		doc.options[2].text = "back3";
+		doc.options[2].value = 3;	 	
+	 }
+}
+//-->
+</script>

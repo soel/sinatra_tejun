@@ -1,0 +1,6 @@
+!/before/*.gitkeeper
+!/after/*.gitkeeper
+/before/
+/after/
+/.c9revisions/
+.settings

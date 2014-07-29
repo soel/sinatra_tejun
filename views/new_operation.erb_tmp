@@ -1,0 +1,46 @@
+<h1><%= @title %></h1>
+<form name = "switch" action="/new" method="post">
+	<%= csrf_tag %>
+<p>
+	スイッチ種別選択  <br>
+	<select name="switch_type" onChange="changeform()">
+		<option value="0">front か back を選択</option>
+		<option value="1">front</option>
+		<option value="2">back</option>
+	</select>
+</p>
+<p>
+	スイッチ選択  <br>
+	<select name="switch_name">
+		<option value=""></option>
+	</select>
+</p>
+<p>
+	submit:<input type="submit">
+</p>
+
+<script type="text/JavaScript">
+<!--
+function changeform() {
+    doc = document.switch.switch_name;
+    if (document.switch.switch_type.value == 1) {
+    		doc.length = 3;
+        	doc.options[0].text = "front1";
+		doc.options[0].value = 1;
+		doc.options[1].text = "front2";
+		doc.options[1].value = 2;
+		doc.options[2].text = "front3";
+		doc.options[2].value = 3;
+	 } else if (document.switch.switch_type.value == 2) {
+	 	doc.length = 3;
+        	doc.options[0].text = "back1";
+		doc.options[0].value = 1;
+		doc.options[1].text = "back2";
+		doc.options[1].value = 2;
+		doc.options[2].text = "back3";
+		doc.options[2].value = 3;	 	
+	 }
+}
+//-->
+</script>
+

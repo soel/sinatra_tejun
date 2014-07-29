@@ -1,0 +1,176 @@
+<form name = "checktest" id = "checktest" method="POST" action="<%= @action %>" enctype="multipart/form-data">
+<%= csrf_tag %>
+
+	<div class="page-header">
+		<h1><%= h @title %> 新規 手順書</h1>
+	</div>
+	<p>
+	<div class = "row">
+		<div class = "col col-md-9 col-sm-12 col-xs-12">
+			<h2>チケット番号  : <%= h @ticket_num %></h2>
+		</div>
+	</div>
+	</p>
+
+	<p>
+	<div class = "row">
+		<div class = "col col-md-9 col-sm-12 col-xs-12">
+			<h2>既存コンフィグ</h2>
+			<pre><%= conf = h @conf_br %></pre>
+		</div>
+	</div>
+	</p>
+
+	<P>
+	<div class = "row">
+		<div class = "col col-md-9 col-sm-12 col-xs-12">
+			<h2>作業前確認 </h2>
+			
+              <div class="alert alert-dismissable alert-warning">
+                	<button type="button" class="close" data-dismiss="alert">&times;</button>
+                	<h4>Warning!</h4>
+                	<p>作業開始前に必要な『監視静観依頼』が出されているか確認してください。   </p>
+              </div>
+              <p>担当:<%= h @ope_a %></p>
+			<li>#vlan <%= h @vlan %> が存在しないことを確認</li>
+			<pre>(<%= h @title %>)show vlan id <%= h @vlan %></pre>
+			<li>#vlan <%= h @vlan %> が存在することを確認</li>
+			<pre>(<%= h @title %>)show interface description | include Vl<%= h @vlan %></pre>
+			<li>#HSRPの確認</li>
+			<pre>(<%= h @title %>)show standby brief | include Vl<%= h @vlan %></pre>
+         </div>
+     </div>
+     </P>
+
+     <p>
+	<div class = "form-group">
+	<label id = label1 style = 'background-color: #ffffc8;'>
+	<input type="checkbox" name="check1" id="check1" value="ope1" onClick="javascript:chk(1);" >
+	作業チェック1
+	<input type="text" id="txt1" name="sagyo_check_1" size="30" required>
+	</label>
+	</div>
+	</p>
+
+     <p>
+     <div class = "row">
+		<div class = "col col-md-9 col-sm-12 col-xs-12">
+			<h2>設定作業 </h2>
+			<p>担当: <%= h @ope_a %></p>
+			<li>#configアップロード</li>
+<pre>
+<code>en
+copy running-config tftp://<%= h @conf_save %>-confg
+
+cvs diff -c <%= h @conf_save %> | less
+</code>
+</pre>
+			<h3>コンフィグ投入</h3><br>
+			<p>担当:<%= h @ope_a %></p>
+<pre>
+<code>en
+conf t
+terminal monitor
+			
+vlan <%= h @vlan %>
+name <%= h @vlan_n %>
+exit
+			
+interface Vlan<%= h @vlan %>
+ip address <%= h @address %> 255.255.255.0
+ip access-group default-acl out
+standby <%= h @hsrp %> ip <%= h @vip %>.254  
+standby <%= h @hsrp %> priority 105
+standby <%= h @hsrp %> preempt
+no shutdown
+exit
+
+exit
+</code>
+</pre>
+
+
+		</div>
+	</div>
+	</p>
+
+     <p>
+	<div class = "form-group">
+	<label id = label2 style = 'background-color: #ffffc8;'>
+	<input type="checkbox" name="check2" id="check2" value="ope2" onClick="javascript:chk(2);">
+	作業チェック2
+	<input type="text" id="txt2" name="sagyo_check_2" size="30" required>
+	</label>
+	</div>
+	</p>
+
+	<p>
+	<div class = "row">
+		<div class = "col col-md-9 col-sm-12 col-xs-12">
+			<h2>事後確認  </h2><br>
+              <p>担当:<%= h @ope_a %></p>
+			<li>#vlan <%= h @vlan %> が存在しないことを確認</li>
+			<pre>(<%= h @title %>)show vlan id <%= h @vlan %></pre>
+			<li>#vlan <%= h @vlan %> が存在していないことを確認</li>
+			<pre>(<%= h @title %>)show interface description | include Vl<%= h @vlan %></pre>
+			<li>#HSRPの確認</li>
+			<pre>(<%= h @title %>)show standby brief | include Vl<%= h @vlan %></pre>
+			<li>#ログチェック</li>
+			<pre>(<%= h @title %>)show log</pre>
+			<li>#config保存</li>
+			<pre>(<%= h @title %>)copy running-config startup-config</pre>
+			<li>#configアップロード</li>
+			<pre>(<%= h @title %>)copy running-config tftp:<%= h @conf_save %>-confg</pre>
+			<p>担当:<%= h @ope_a %></p>
+			<li>#configの差分確認</li>
+			<pre>cvs diff -c <%= h @conf_save %>-confg | less</pre>
+			<li>#保存configのcommit</li>
+			<pre>cvs commit <%= h @conf_save %>-confg</pre>
+		</div>
+	</div>
+	</p>
+
+     <p>
+	<div class = "form-group">
+	<label id = label3 style = 'background-color: #ffffc8;'>
+	<input type="checkbox" name="check3" id="check3" value="ope3" onClick="javascript:chk(3);">
+	作業チェック3
+	<input type="text" id="txt3" name="sagyo_check_3" size="30" required>
+	</label>
+	</div>
+	</p>
+
+	<p>
+	<div class = "form-group">
+	<div class = "row">
+		<div class = "col col-md-9 col-sm-12 col-xs-12">
+			<input type="hidden" name="file_name" value="<%= @file_name %>">
+			<button type="submit" class="btn btn-primary">作業終了</button>
+		</div>
+	</div>
+	</div>
+	</p>
+
+
+</form>
+<script type="text/javascript">
+function chk( x ){
+var today = new Date();
+var Year = today.getFullYear();
+var Month = today.getMonth()+1;
+var Day = today.getDate();
+var Hour = today.getHours();
+var Minute = today.getMinutes();
+var second = today.getSeconds();
+var mytime = Year + "/" + Month + "/" + Day + " " + Hour + ":" + Minute + ":" + second;
+var val = eval("document.checktest.check" + x + ".checked")
+if( val ){
+          document.getElementById("txt" + x).value = mytime;
+          document.getElementById("label" + x).style.background='#ffdcdc';
+}else{
+          document.getElementById("txt" + x).value = "";
+          document.getElementById("label" + x).style.background='#ffffc8';
+}
+}
+
+</script>

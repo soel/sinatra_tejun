@@ -1,0 +1,19 @@
+<div class = "row">
+    <div class = "col col-md-6 col-sm-12 col-xs-12">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                作業履歴
+            </div>
+            <div class="panel-body">
+                <% counter = 1 %>
+                <% @times.each do |time| %>
+                <p>作業<%= counter %>     <%= time %></p>
+                <% counter += 1 %>
+                <% end %>
+            </div>
+        </div>
+    </div>
+</div>			
+
+
+<%= @contents %>

@@ -1,0 +1,38 @@
+
+<% if @txt %>
+<div class = "row">
+    <div class = "col col-md-12 col-sm-12 col-xs-12">
+        <pre><%= h @txt %></pre>
+    </div>
+</div>
+<% end %>
+
+<%if @contents %>
+<form name = "post_log" id = "post_log" method="POST" action="<%= @action %>" enctype="multipart/form-data">
+<%= csrf_tag %>
+    <p>
+    <div class = "form-group">
+    <div class = "row">
+        <div class = "col col-md-6 col-sm-12 col-xs-12">
+            ログファイル : <input type="file" name="upfile">
+        </div>
+    </div>
+    </div>
+    </p>
+
+    <p>
+    <div class = "form-group">
+    <div class = "row">
+        <div class = "col col-md-6 col-sm-12 col-xs-12">
+            <button type="submit" class="btn btn-primary">ファイルアップロード</button>
+        </div>
+    </div>
+    </div>
+    </p>
+
+</form>
+
+
+<%= @contents %>
+	
+<% end %>

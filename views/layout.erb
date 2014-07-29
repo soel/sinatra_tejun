@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title><%= @title %></title>
+	<link href="http://172.16.62.123/css/bootstrap.min.css" rel="stylesheet" media="screen">
+  <link href="http://172.16.62.123/css/bootstrapValidator.min.css" rel="stylesheet" media="screen">
+
+  <script src="http://172.16.62.123/js/jquery-1.10.2.min.js"></script>
+  <script src="http://172.16.62.123/js/bootstrap.min.js"></script>
+  <script src="http://172.16.62.123/js/jquery.validate.min.js"></script>
+	<style>
+	body {
+    padding-top: 70px;
+    padding-bottom: 30px;
+	}
+	</style>
+</head>
+<body>
+	<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <p class="navbar-text" ><strong>手順書作成/参照ページ</strong></p>
+        </div>
+        <div class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="/">Top</a></li>
+            <li><a href="<%= @before_link %>">before</a></li>
+            <li><a href="<%= @after_link %>">after</a></li>
+            <li><a href="<%= @new_switch_link %>">new</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+    <div class="container">
+	<%= yield %>
+    </div>
+</body>
+</html>
